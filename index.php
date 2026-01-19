@@ -4,7 +4,8 @@ class Produk {
     public 
     $judul,
     $penulis, 
-    $penerbit, 
+    $penerbit;
+    protected 
     $harga;
 
     public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0) {
@@ -66,3 +67,5 @@ $produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 55, 
 echo $produk1->getInfoProduk();
 echo "<br>";
 echo $produk2->getInfoProduk();
+echo "<hr>";
+echo $produk1->harga; //Fatal error: Uncaught Error: Cannot access protected property
