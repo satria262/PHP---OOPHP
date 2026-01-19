@@ -5,17 +5,13 @@ class Produk {
     $judul,
     $penulis, 
     $penerbit, 
-    $harga,
-    $jmlHalaman,
-    $waktuTamat;
+    $harga;
 
-    public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0, $jmlHalaman = "Belum diisi", $waktuTamat = "Belum diisi") {
+    public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0) {
         $this->judul = $judul;
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
-        $this->jmlHalaman = $jmlHalaman;
-        $this->waktuTamat = $waktuTamat;
     }
 
     public function getLabel() {
@@ -29,15 +25,29 @@ class Produk {
 }
 
 class Komik extends Produk {
-    public function getInfoKomik() {
-        $text = "Komik : {$this->getInfoProduk()} - {$this->jmlHalaman} Halaman.";
+    public $jmlHalaman;
+
+    public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0, $jmlHalaman = "Belum diisi") {
+        parent::__construct($judul, $penulis, $penerbit, $harga);
+        $this->jmlHalaman = $jmlHalaman; 
+    }
+
+    public function getInfoProduk() {
+        $text = "Komik : " . parent::getInfoProduk() . " - {$this->jmlHalaman} Halaman.";
         return $text;
     }
 }
 
 class Game extends Produk {
-    public function getInfoGame() {
-        $text = "Game : {$this->getInfoProduk()} ~ {$this->waktuTamat } Jam.";
+    public $waktuTamat;
+
+    public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0, $waktuTamat = "Belum diisi") {
+        parent::__construct($judul, $penulis, $penerbit, $harga);
+        $this->waktuTamat = $waktuTamat;
+    }
+
+    public function getInfoProduk() {
+        $text = "Game : " . parent::getInfoProduk() . " ~ {$this->waktuTamat } Jam.";
         return $text;
     }
 }
@@ -50,9 +60,9 @@ class Game extends Produk {
 
 
 // judul, penulis, penerbit, harga, hal, jam, tipe
-$produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 0, 55, "game");
-$produk1 = new Komik("test_judul", "test_penulis", "test_penerbit", "test_harga", 100, 55, "Komik");
+$produk1 = new Komik("test_judul", "test_penulis", "test_penerbit", "test_harga", 100, "Komik");
+$produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 55, "game");
 
-echo $produk1->getInfoKomik();
+echo $produk1->getInfoProduk();
 echo "<br>";
-echo $produk2->getInfoGame();
+echo $produk2->getInfoProduk();
