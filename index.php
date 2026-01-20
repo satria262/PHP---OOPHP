@@ -1,6 +1,6 @@
 <?php
 
-class Produk {
+abstract class Produk {
     private 
     $judul,
     $penulis, 
@@ -28,7 +28,9 @@ class Produk {
         }
     }
 
-    public function getInfoProduk() {
+    abstract public function getInfoProduk();
+
+    public function getInfo() {
         $text = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
         return $text;
     }
@@ -42,8 +44,9 @@ class Komik extends Produk {
         $this->jmlHalaman = $jmlHalaman; 
     }
 
+    // penting, fungsi dibawah adalah implementasi dari fungsi abstrak (punyanya parent (obvious    ))
     public function getInfoProduk() {
-        $text = "Komik : " . parent::getInfoProduk() . " - {$this->jmlHalaman} Halaman.";
+        $text = "Komik : " . $this->getInfo() . " - {$this->jmlHalaman} Halaman.";
         return $text;
     }
 }
@@ -56,20 +59,36 @@ class Game extends Produk {
         $this->waktuTamat = $waktuTamat;
     }
 
+    // penting, fungsi dibawah adalah implementasi dari fungsi abstrak (punyanya parent (obvious    ))
     public function getInfoProduk() {
-        $text = "Game : " . parent::getInfoProduk() . " ~ {$this->waktuTamat } Jam.";
+        $text = "Game : " . $this->getInfo() . " ~ {$this->waktuTamat } Jam.";
         return $text;                       
     }
 }
 class CetakanInfoProduk {
-    public function print(Produk $x) {
-        $text = "{$x->judul} | {$x->penulis}, diterbitkan oleh {$x->penerbit} mulai (Rp. {$x->harga })";
-        return $text;
+    public $daftarproduk = array();
+
+    public function tambahProduk(Produk $produk) {
+        $this->daftarproduk[] = $produk;
+    }
+
+    public function print() {
+    $text = "Daftar Produk: \n";
+    foreach($this->daftarproduk as $p) {
+        $text .= "- {$p->getInfoProduk()} \n";
+    }
+    return $text;
     }
 }
 
 
 
-// judul, penulis, penerbit, harga, hal, jam, tipe
+// judul, penulis, penerbit, harga, hal, jam, tipep
 $produk1 = new Komik("test_judul", "test_penulis", "test_penerbit", "test_harga", 100, "Komik");
 $produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 55, "game");
+
+$cetakProduk = new CetakanInfoProduk();
+$cetakProduk->tambahProduk($produk1);
+$cetakProduk->tambahProduk($produk2);
+
+echo $cetakProduk->print();
