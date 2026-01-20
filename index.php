@@ -1,7 +1,7 @@
 <?php
 
 class Produk {
-    public 
+    private 
     $judul,
     $penulis, 
     $penerbit;
@@ -15,8 +15,17 @@ class Produk {
         $this->harga = $harga;
     }
 
+    // yang ini getter
     public function getLabel() {
         return "$this->penulis, $this->penerbit";
+    }
+    // yang ini setter
+    public function setJudul($judulbaru) {
+        if (!is_string($judulbaru)) {
+            throw new Exception("New title can't be filled with any integer");
+        } else {
+        $this->judul = $judulbaru;
+        }
     }
 
     public function getInfoProduk() {
@@ -49,7 +58,7 @@ class Game extends Produk {
 
     public function getInfoProduk() {
         $text = "Game : " . parent::getInfoProduk() . " ~ {$this->waktuTamat } Jam.";
-        return $text;
+        return $text;                       
     }
 }
 // class CetakanInfoProduk {
@@ -63,9 +72,8 @@ class Game extends Produk {
 // judul, penulis, penerbit, harga, hal, jam, tipe
 $produk1 = new Komik("test_judul", "test_penulis", "test_penerbit", "test_harga", 100, "Komik");
 $produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 55, "game");
-
-echo $produk1->getInfoProduk();
-echo "<br>";
-echo $produk2->getInfoProduk();
-echo "<hr>";
-echo $produk1->harga; //Fatal error: Uncaught Error: Cannot access protected property
+$produk1->setJudul("function test");
+echo $produk1->getInfoProduk()."\n";
+echo $produk2->getInfoProduk()."\n";
+// echo $produk1->harga; //Fatal error: Uncaught Error: Cannot access protected property
+echo $produk1->getLabel();
