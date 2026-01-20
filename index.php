@@ -1,11 +1,14 @@
 <?php
 
+interface InfoProduk {
+    public function getInfoProduk();
+}
+
 abstract class Produk {
-    private 
+    protected 
     $judul,
     $penulis, 
-    $penerbit;
-    protected 
+    $penerbit,
     $harga;
 
     public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0) {
@@ -28,20 +31,20 @@ abstract class Produk {
         }
     }
 
-    abstract public function getInfoProduk();
-
-    public function getInfo() {
-        $text = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
-        return $text;
-    }
+    abstract public function getInfo();
 }
 
-class Komik extends Produk {
+class Komik extends Produk implements InfoProduk{
     public $jmlHalaman;
 
     public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0, $jmlHalaman = "Belum diisi") {
         parent::__construct($judul, $penulis, $penerbit, $harga);
         $this->jmlHalaman = $jmlHalaman; 
+    }
+
+    public function getInfo() {
+        $text = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
+        return $text;
     }
 
     // penting, fungsi dibawah adalah implementasi dari fungsi abstrak (punyanya parent (obvious    ))
@@ -51,12 +54,17 @@ class Komik extends Produk {
     }
 }
 
-class Game extends Produk {
+class Game extends Produk implements InfoProduk{
     public $waktuTamat;
 
     public function __construct($judul = "Belum diisi", $penulis = "Belum diisi", $penerbit = "Belum diisi", $harga = 0, $waktuTamat = "Belum diisi") {
         parent::__construct($judul, $penulis, $penerbit, $harga);
         $this->waktuTamat = $waktuTamat;
+    }
+
+    public function getInfo() {
+        $text = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
+        return $text;
     }
 
     // penting, fungsi dibawah adalah implementasi dari fungsi abstrak (punyanya parent (obvious    ))
