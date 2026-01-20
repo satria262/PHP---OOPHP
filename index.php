@@ -61,19 +61,15 @@ class Game extends Produk {
         return $text;                       
     }
 }
-// class CetakanInfoProduk {
-//     public function print(Produk $x) {
-//         $text = "{$x->judul} | {$x->penulis}, diterbitkan oleh {$x->penerbit} mulai (Rp. {$x->harga })";
-//     }
-// }
+class CetakanInfoProduk {
+    public function print(Produk $x) {
+        $text = "{$x->judul} | {$x->penulis}, diterbitkan oleh {$x->penerbit} mulai (Rp. {$x->harga })";
+        return $text;
+    }
+}
 
 
 
 // judul, penulis, penerbit, harga, hal, jam, tipe
 $produk1 = new Komik("test_judul", "test_penulis", "test_penerbit", "test_harga", 100, "Komik");
 $produk2 = new Game("test_game", "test_dev", "test_launcher", "test_harga", 55, "game");
-$produk1->setJudul("function test");
-echo $produk1->getInfoProduk()."\n";
-echo $produk2->getInfoProduk()."\n";
-// echo $produk1->harga; //Fatal error: Uncaught Error: Cannot access protected property
-echo $produk1->getLabel();

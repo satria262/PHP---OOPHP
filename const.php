@@ -8,7 +8,5 @@ class Coba {
     const NAMA = 'Kikuk';
 }
 
-echo ;
-
 echo Coba::NAMA;
 ?>
